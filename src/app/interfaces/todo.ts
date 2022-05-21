@@ -1,7 +1,7 @@
 export interface Todo {
-	title: String,
-	description: String,
-	group: String,
-	deliveryDate: String,
-	priority: Number,
+	title: string,
+	description: string,
+	group: string,
+	deliveryDate: string,
+	priority: string
 }
