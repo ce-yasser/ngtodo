@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { formatDate, Location } from '@angular/common';
 import { FormGroup, FormControl, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import { NgxUiLoaderService } from "ngx-ui-loader";
+import { TodosService } from 'src/app/services/todos.service';
 
 @Component({
 	selector: 'app-add-todo',
@@ -23,11 +24,12 @@ export class AddTodoComponent implements OnInit {
 
 	constructor(
 		private ngxService: NgxUiLoaderService,
-		private location: Location
+		private location: Location,
+		private todosService: TodosService
 	) {
 		this.taskForm = new FormGroup({
-			title: new FormControl('', [Validators.required]),
-			description: new FormControl('', [Validators.required]),
+			title: new FormControl('as', [Validators.required]),
+			description: new FormControl('ss', [Validators.required]),
 			group: new FormControl(this.groups[0], [Validators.required]),
 			deliveryDate: new FormControl(formatDate(this.today, 'yyyy-MM-dd', 'en'), [Validators.required, this.dateCheck()]),
 			priority: new FormControl(String(10), [Validators.required])
@@ -39,11 +41,9 @@ export class AddTodoComponent implements OnInit {
 
 	submit() {
 		this.ngxService.start();
-		console.log(this.taskForm.value);
-
-		setTimeout(() => {
+		this.todosService.create(this.taskForm.value).then(id => {
 			this.ngxService.stop();
-		}, 2000)
+		});
 	}
 
 	OnDestroy() {
@@ -60,7 +60,4 @@ export class AddTodoComponent implements OnInit {
 		this.location.back();
 	}
 
-	clear() {
-		this.taskForm.reset();
-	}
 }
