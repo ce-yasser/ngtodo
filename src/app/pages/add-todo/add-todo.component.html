@@ -15,7 +15,7 @@
 
   <div [class.error]="taskForm.get('group')?.touched && taskForm.get('group')?.invalid">
     <select formControlName="group">
-      <option *ngFor="let group of groups" value="{{group}}">{{group |titlecase }}</option>
+      <option *ngFor="let group of groups" value="{{group}}">{{group | titlecase }}</option>
     </select>
   </div>
 

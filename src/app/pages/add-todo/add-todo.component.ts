@@ -48,11 +48,6 @@ export class AddTodoComponent implements OnInit {
 		});
 	}
 
-	OnDestroy() {
-		this.ngxService.stop();
-	}
-
-
 	dateCheck(): ValidatorFn {
 		return (control: AbstractControl): { [key: string]: any } | null =>
 			(this.today > +new Date(control.value)) ? { "LessThanToday": true } : null;

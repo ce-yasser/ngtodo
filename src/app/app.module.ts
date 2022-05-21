@@ -7,11 +7,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AddTodoComponent } from './pages/add-todo/add-todo.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { TodoComponent } from './pages/todo/todo.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AddTodoComponent
+    AddTodoComponent,
+    TodoComponent
   ],
   imports: [
     BrowserModule,

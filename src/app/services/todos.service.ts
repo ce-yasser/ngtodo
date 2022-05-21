@@ -15,7 +15,7 @@ export class TodosService {
 		});
 	}
 
-	create(todo: Todo) {
+	create(todo: Todo): Promise<number> {
 		return new Promise(resolve => {
 			this.getAll().then(todos => {
 				todos.push(todo);
@@ -25,7 +25,13 @@ export class TodosService {
 		});
 	}
 
-
+	get(id: number): Promise<Todo> {
+		return new Promise(resolve => {
+			this.getAll().then(todos => {
+				resolve(todos[id])
+			});
+		});
+	}
 	delete() {
 
 	}
