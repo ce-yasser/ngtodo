@@ -36,10 +36,10 @@ export class AddTodoComponent implements OnInit {
 			priority: new FormControl(String(10), [Validators.required]),
 			status: new FormControl('0', [Validators.required])
 		});
+
 	}
 
-	ngOnInit(): void {
-	}
+	ngOnInit(): void {}
 
 	submit() {
 		this.ngxService.start();

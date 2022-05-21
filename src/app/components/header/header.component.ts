@@ -1,3 +1,4 @@
+import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+	today = formatDate(new Date(), 'yyyy-MM-dd', 'en');
+	week = formatDate(new Date(new Date().setDate(new Date().getDate() + 7)), 'yyyy-MM-dd', 'en');
 
   constructor() { }
 

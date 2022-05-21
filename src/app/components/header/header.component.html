@@ -1,6 +1,13 @@
 <nav class="menu">
   <div class="navbar-nav">
-    <a class="nav-item nav-link" routerLink="/">Home</a>
+    <a class="nav-item nav-link" routerLink="/" [queryParams]="{'grouped': 1}">Home</a>
+    <a class="nav-item nav-link" routerLink="/" [queryParams]="{'grouped': 0}">All</a>
+    <a class="nav-item nav-link" routerLink="/" [queryParams]="{'startDate': today, 'endDate': today}">Today</a>
+    <a class="nav-item nav-link" routerLink="/" [queryParams]="{'startDate': today, 'endDate': week}">Week</a>
+    <a class="nav-item nav-link" routerLink="/" [queryParams]="{'grouped': 1}">Groups</a>
+    <a class="nav-item nav-link" routerLink="/" [queryParams]="{'group': 'group1'}">Group1</a>
+    <a class="nav-item nav-link" routerLink="/" [queryParams]="{'group': 'group2'}">Group2</a>
+    <a class="nav-item nav-link" routerLink="/" [queryParams]="{'group': 'group3'}">Group3</a>
     <a class="nav-item nav-link" routerLink="/add">Add</a>
   </div>
 </nav>
