@@ -8,16 +8,20 @@
 
 
 <div *ngIf="grouped == '1'">
-  <div *ngFor="let group of todos | keyvalue">
+  <div class="home__container" *ngFor="let group of todos | keyvalue">
     <h2>{{group?.key}}</h2>
-    <div *ngFor="let todo of group.value">
-      {{todo?.title}} | {{todo?.group}} | {{todo?.deliveryDate}}
+    <div class="home__cards">
+      <div *ngFor="let todo of group.value">
+        <app-todo-card [todo]="todo"></app-todo-card>
+      </div>
     </div>
   </div>
 </div>
 
-<div *ngIf="grouped !== '1'">
-  <div *ngFor="let todo of todos">
-    {{todo?.title}}
+<div class="home__container" *ngIf="grouped !== '1'">
+  <div class="home__cards">
+    <div *ngFor="let todo of todos">
+      {{todo?.title}}
+    </div>
   </div>
 </div>

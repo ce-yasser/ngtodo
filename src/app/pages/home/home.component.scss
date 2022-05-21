@@ -1,0 +1,11 @@
+.home {
+  &__container {
+    margin-top: 30px;
+  }
+
+  &__cards {
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+  }
+}

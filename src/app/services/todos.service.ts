@@ -33,6 +33,21 @@ export class TodosService {
 		});
 	}
 
+	markDone(id: string): Promise<string> {
+		return new Promise(resolve => {
+			this.getAll().then(todos => {
+				const newTodos = todos.map(todo => {
+					if (todo.id == id) {
+						return { ...todo, status: '1' };
+					}
+					return todo;
+				});
+				localStorage.setItem('todos', JSON.stringify(newTodos));
+				resolve('1');
+			})
+		});
+	}
+
 	/**
 	 * Get single group
 	 * @param id Group ID

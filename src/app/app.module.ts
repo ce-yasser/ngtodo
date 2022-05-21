@@ -10,6 +10,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TodoComponent } from './pages/todo/todo.component';
 import { HeaderComponent } from './components/header/header.component';
 import { HomeComponent } from './pages/home/home.component';
+import { TodoCardComponent } from './components/todo-card/todo-card.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { HomeComponent } from './pages/home/home.component';
     AddTodoComponent,
     TodoComponent,
     HeaderComponent,
-    HomeComponent
+    HomeComponent,
+    TodoCardComponent
   ],
   imports: [
     BrowserModule,

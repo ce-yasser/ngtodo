@@ -1,0 +1,16 @@
+<div class="todo-card" [class.disabled]="todo?.status == '1'">
+  <input class="todo-card__input" type="checkbox" [id]="todo?.id + '_checkbox'">
+  <label class="todo-card__label" [for]="todo?.id + '_checkbox'">
+    <div class="todo-card__checkbox">
+      <fa-icon [icon]="faCheck"></fa-icon>
+    </div>
+  </label>
+	<div class="todo-card__title" (click)="goToSingle(todo?.id)">
+		{{todo?.title}}
+	</div>
+
+  <div class="todo-card__actions">
+    <fa-icon class="todo-card__button todo-card__button--delete" [icon]="faTrashCan"></fa-icon>
+    <fa-icon class="todo-card__button todo-card__button--complete" [icon]="faCheck" (click)="updateStatus(todo)"></fa-icon>
+  </div>
+</div>
