@@ -1,1 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+/** 
+ Table of content:
+ -----------------
+ * 1. Variables
+ * 2. Typography
+**/
+/**
+ 1. Variables
+ * css variables extracted from design
+**/
+@import 'assets/variables';
+
+/**
+ 2. Typography
+ * Global css rules and reset css
+**/
+@import 'assets/typography';

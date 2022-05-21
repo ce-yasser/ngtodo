@@ -1,0 +1,28 @@
+:root {
+	--color-contrast: #ffffff;
+	--color-text: #363636;
+
+	// Button colors
+	--color-cta: #183c5b;
+	--color-label: #427a95;
+
+	// Nav colors
+	--color-nav-dark: #4d708e;
+	--color-nav: #678cab;
+	--color-nav-light: #f1fdff;
+	--color-nav-background: #ffffff;
+
+	// State colors
+	--color-green: #86e0a4;
+	--color-red: #ff9c9c;
+	--color-disabled: #949494;
+
+	// Body background
+	--bg-color: #d0e4e0;
+	--bg-gradient: linear-gradient(180deg, #4ba2d1 0, #d0e4e0 100%);
+
+
+	// Input colors
+	--input-background: #f2f2f2;
+	--input-color: #949494;
+}
