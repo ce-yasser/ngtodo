@@ -8,12 +8,14 @@ import { AppComponent } from './app.component';
 import { AddTodoComponent } from './pages/add-todo/add-todo.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TodoComponent } from './pages/todo/todo.component';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AddTodoComponent,
-    TodoComponent
+    TodoComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
