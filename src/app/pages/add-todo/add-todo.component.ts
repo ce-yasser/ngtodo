@@ -3,6 +3,7 @@ import { formatDate, Location } from '@angular/common';
 import { FormGroup, FormControl, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import { NgxUiLoaderService } from "ngx-ui-loader";
 import { TodosService } from 'src/app/services/todos.service';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-add-todo',
@@ -21,15 +22,15 @@ export class AddTodoComponent implements OnInit {
 
 	groups = ['group1', 'group2', 'group3'];
 
-
 	constructor(
 		private ngxService: NgxUiLoaderService,
 		private location: Location,
-		private todosService: TodosService
+		private todosService: TodosService,
+		private router: Router
 	) {
 		this.taskForm = new FormGroup({
-			title: new FormControl('as', [Validators.required]),
-			description: new FormControl('ss', [Validators.required]),
+			title: new FormControl('', [Validators.required]),
+			description: new FormControl('', [Validators.required]),
 			group: new FormControl(this.groups[0], [Validators.required]),
 			deliveryDate: new FormControl(formatDate(this.today, 'yyyy-MM-dd', 'en'), [Validators.required, this.dateCheck()]),
 			priority: new FormControl(String(10), [Validators.required])
@@ -43,6 +44,7 @@ export class AddTodoComponent implements OnInit {
 		this.ngxService.start();
 		this.todosService.create(this.taskForm.value).then(id => {
 			this.ngxService.stop();
+			this.router.navigate(['/todo', id]);
 		});
 	}
 
