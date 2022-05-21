@@ -59,4 +59,8 @@ export class AddTodoComponent implements OnInit {
 	goBack() {
 		this.location.back();
 	}
+
+	clear() {
+		this.taskForm.reset();
+	}
 }
