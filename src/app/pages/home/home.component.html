@@ -1,8 +1,17 @@
+<form (ngSubmit)="submitFilter()" [formGroup]="filterForm">
+  <input type="date" formControlName="startDate" [max]="filterForm.value['end']" />
+  <input type="date" formControlName="endDate" [min]="filterForm.value['start']" />
+  <input type="text" formControlName="title" />
+  <input type="text" formControlName="group" />
+  <button type="submit" [disabled]="!filterForm.valid">Filter</button>
+</form>
+
+
 <div *ngIf="grouped == '1'">
   <div *ngFor="let group of todos | keyvalue">
     <h2>{{group?.key}}</h2>
     <div *ngFor="let todo of group.value">
-      {{todo?.title}}
+      {{todo?.title}} | {{todo?.group}} | {{todo?.deliveryDate}}
     </div>
   </div>
 </div>

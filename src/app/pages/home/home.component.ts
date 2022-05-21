@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { TodosService } from 'src/app/services/todos.service';
 import { NgxUiLoaderService } from "ngx-ui-loader";
-import { ActivatedRoute, Route, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Todo } from 'src/app/interfaces/todo';
+import { FormGroup, FormControl} from '@angular/forms';
 
 @Component({
 	selector: 'app-home',
@@ -17,25 +18,34 @@ export class HomeComponent implements OnInit {
 	startDate: string = '';
 	endDate: string = '';
 	group: string = '';
+	filterForm: FormGroup;
 
 	constructor(
 		private ngxService: NgxUiLoaderService,
 		private route: ActivatedRoute,
 		private router: Router,
+		private activatedRoute: ActivatedRoute,
 		private todosService: TodosService
 	) {
 		this.route.queryParams.subscribe(params => {
 			this.startDate = params['startDate'] ?? this.startDate;
 			this.endDate = params['endDate'] ?? this.endDate;
 			this.title = params['title'] ?? this.title;
-			this.grouped = params['grouped'] ?? this.grouped;
 			this.group = params['group'] ?? this.group;
+			this.grouped = params['grouped'] ?? this.grouped;
 		});
 
 		// Refresh on query args change
 		this.router.routeReuseStrategy.shouldReuseRoute = function () {
 			return false;
 		};
+
+		this.filterForm = new FormGroup({
+			startDate: new FormControl(this.startDate),
+			endDate: new FormControl(this.endDate),
+			title: new FormControl(this.title),
+			group: new FormControl(this.group)
+		});
 	}
 
 	ngOnInit(): void {
@@ -64,5 +74,16 @@ export class HomeComponent implements OnInit {
 				resolve(allTodos);
 			}
 		});
+	}
+
+	submitFilter() {
+		const queryParams: Params = this.filterForm.value;
+		this.router.navigate(
+			[],
+			{
+				relativeTo: this.activatedRoute,
+				queryParams: queryParams,
+				queryParamsHandling: 'merge', // remove to replace all query params by provided
+			});
 	}
 }

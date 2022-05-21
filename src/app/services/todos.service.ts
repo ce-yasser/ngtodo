@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { faCropSimple } from '@fortawesome/free-solid-svg-icons';
 import { Todo } from '../interfaces/todo';
 
 @Injectable({
@@ -93,7 +94,7 @@ export class TodosService {
 				resolve(todos);
 			}
 			const filtered = todos.filter(todo => {
-				return todo.title.toLowerCase().includes(title);
+				return todo.title.toLowerCase().includes(title.toLowerCase());
 			});
 
 			resolve(filtered);
@@ -110,8 +111,9 @@ export class TodosService {
 			if (!group) {
 				resolve(todos);
 			}
+			const groups = group.toLowerCase().split(',');
 			const filtered = todos.filter(todo => {
-				return todo.group.toLowerCase().includes(group);
+				return groups.indexOf(todo.group.toLowerCase()) != -1;
 			});
 
 			resolve(filtered);
