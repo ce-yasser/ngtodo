@@ -43,7 +43,6 @@ export class HomeComponent implements OnInit {
 		this.refreshTodos().then(todos => {
 			this.ngxService.stop();
 			this.todos = todos;
-			console.log(this.todos);
 		});
 	}
 

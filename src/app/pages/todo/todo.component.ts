@@ -12,7 +12,7 @@ import { Todo } from 'src/app/interfaces/todo';
 })
 
 export class TodoComponent implements OnInit {
-	todoId: number;
+	todoId: string | null = '';
 	todo: Todo | undefined;
 
 	constructor(
@@ -21,9 +21,9 @@ export class TodoComponent implements OnInit {
 		private todosService: TodosService
 	) {
 		const routeParams = this.activatedRoute.snapshot.paramMap;
-		this.todoId = Number(routeParams.get('Id'));
+		this.todoId = routeParams.get('Id');
 	}
-
+	
 	ngOnInit(): void {
 		this.ngxService.start();
 		this.todosService.get(this.todoId).then(todo => {

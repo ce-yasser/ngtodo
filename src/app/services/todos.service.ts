@@ -22,12 +22,12 @@ export class TodosService {
 	 * Create todo
 	 * @param todo 
 	 */
-	create(todo: Todo): Promise<number> {
+	create(todo: Todo): Promise<string> {
 		return new Promise(resolve => {
 			this.getAll().then(todos => {
 				todos.push(todo);
 				localStorage.setItem('todos', JSON.stringify(todos));
-				resolve(todos.length - 1);
+				resolve(todo.id);
 			})
 		});
 	}
@@ -36,15 +36,12 @@ export class TodosService {
 	 * Get single group
 	 * @param id Group ID
 	 */
-	get(id: number): Promise<Todo> {
+	get(id: string | null): Promise<Todo | undefined> {
 		return new Promise(resolve => {
 			this.getAll().then(todos => {
-				resolve(todos[id])
+				resolve(todos.find(todo => todo.id == id));
 			});
 		});
-	}
-	delete() {
-
 	}
 
 	/**

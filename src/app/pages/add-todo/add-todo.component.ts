@@ -21,6 +21,7 @@ export class AddTodoComponent implements OnInit {
 	};
 
 	groups = ['group1', 'group2', 'group3'];
+	id: string = Math.random().toString(16).slice(2);
 
 	constructor(
 		private ngxService: NgxUiLoaderService,
@@ -34,7 +35,8 @@ export class AddTodoComponent implements OnInit {
 			group: new FormControl(this.groups[0], [Validators.required]),
 			deliveryDate: new FormControl(formatDate(this.today, 'yyyy-MM-dd', 'en'), [Validators.required, this.dateCheck()]),
 			priority: new FormControl(String(10), [Validators.required]),
-			status: new FormControl('0', [Validators.required])
+			status: new FormControl('0', [Validators.required]),
+			id: new FormControl(this.id, [Validators.required]),
 		});
 
 	}

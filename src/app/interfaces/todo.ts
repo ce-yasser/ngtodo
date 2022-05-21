@@ -4,5 +4,6 @@ export interface Todo {
 	group: string,
 	deliveryDate: string,
 	priority: string,
-	status: string
+	status: string,
+	id: string
 }
