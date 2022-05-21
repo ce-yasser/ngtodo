@@ -33,7 +33,8 @@ export class AddTodoComponent implements OnInit {
 			description: new FormControl('', [Validators.required]),
 			group: new FormControl(this.groups[0], [Validators.required]),
 			deliveryDate: new FormControl(formatDate(this.today, 'yyyy-MM-dd', 'en'), [Validators.required, this.dateCheck()]),
-			priority: new FormControl(String(10), [Validators.required])
+			priority: new FormControl(String(10), [Validators.required]),
+			status: new FormControl('0', [Validators.required])
 		});
 	}
 

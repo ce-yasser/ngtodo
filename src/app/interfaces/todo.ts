@@ -3,5 +3,6 @@ export interface Todo {
 	description: string,
 	group: string,
 	deliveryDate: string,
-	priority: string
+	priority: string,
+	status: string
 }
