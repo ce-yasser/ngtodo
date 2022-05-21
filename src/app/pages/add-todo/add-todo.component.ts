@@ -1,15 +1,62 @@
 import { Component, OnInit } from '@angular/core';
+import { formatDate, Location } from '@angular/common';
+import { FormGroup, FormControl, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
+import { NgxUiLoaderService } from "ngx-ui-loader";
 
 @Component({
-  selector: 'app-add-todo',
-  templateUrl: './add-todo.component.html',
-  styleUrls: ['./add-todo.component.scss']
+	selector: 'app-add-todo',
+	templateUrl: './add-todo.component.html',
+	styleUrls: ['./add-todo.component.scss']
 })
 export class AddTodoComponent implements OnInit {
+	taskForm: FormGroup;
+	today = (new Date()).setUTCHours(0, 0, 0, 0);
 
-  constructor() { }
+	priorities = {
+		0: 'low',
+		10: 'medium',
+		20: 'high'
+	};
 
-  ngOnInit(): void {
-  }
+	groups = ['group1', 'group2', 'group3'];
 
+
+	constructor(
+		private ngxService: NgxUiLoaderService,
+		private location: Location
+	) {
+		this.taskForm = new FormGroup({
+			title: new FormControl('', [Validators.required]),
+			description: new FormControl('', [Validators.required]),
+			group: new FormControl(this.groups[0], [Validators.required]),
+			deliveryDate: new FormControl(formatDate(this.today, 'yyyy-MM-dd', 'en'), [Validators.required, this.dateCheck()]),
+			priority: new FormControl(String(10), [Validators.required])
+		});
+	}
+
+	ngOnInit(): void {
+	}
+
+	submit() {
+		this.ngxService.start();
+		console.log(this.taskForm.value);
+
+		setTimeout(() => {
+			this.ngxService.stop();
+		}, 2000)
+	}
+
+	OnDestroy() {
+		this.ngxService.stop();
+	}
+
+
+	dateCheck(): ValidatorFn {
+		return (control: AbstractControl): { [key: string]: any } | null =>
+			(this.today > +new Date(control.value)) ? { "LessThanToday": true } : null;
+	}
+
+	goBack() {
+		this.location.back();
+	}
 }
