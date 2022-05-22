@@ -44,7 +44,6 @@ export class HomeComponent implements OnInit {
 			this.grouped = params['grouped'] ?? this.grouped;
 			this.pageTitle= params['pageTitle'] ?? this.pageTitle;
 			this.group = (params['group'] instanceof Array) ? params['group'] : (typeof params['group'] != 'undefined') ? [params['group']] : this.todos;
-			console.log(this.group);
 		});
 
 		// Refresh on query args change

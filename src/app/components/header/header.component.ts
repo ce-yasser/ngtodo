@@ -12,7 +12,7 @@ export class HeaderComponent implements OnInit {
 	week = formatDate(new Date(new Date().setDate(new Date().getDate() + 7)), 'yyyy-MM-dd', 'en');
 	openNav: boolean = true;
 	openGroups: boolean = false;
-	
+
 	faNavicon = faNavicon;
 	faHouse = faHouse;
 	faList = faList;
@@ -28,19 +28,23 @@ export class HeaderComponent implements OnInit {
 	constructor() { }
 
 	ngOnInit(): void {
+		let navStatus = localStorage.getItem('nav');
+		this.openNav = navStatus === 'true';
+		this.navStatus.emit(this.openNav);
 	}
 
 	toggle() {
 		this.openNav = !this.openNav;
-		if(!this.openNav) {
+		localStorage.setItem('nav', JSON.stringify(this.openNav));
+		if (!this.openNav) {
 			this.openGroups = false;
 		}
 		this.navStatus.emit(this.openNav);
 	}
-	
+
 	toggleGroups() {
 		this.openGroups = !this.openGroups;
-		if(this.openGroups) {
+		if (this.openGroups) {
 			this.openNav = true;
 			this.navStatus.emit(this.openNav);
 		}
