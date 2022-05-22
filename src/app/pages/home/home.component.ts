@@ -5,6 +5,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Todo } from 'src/app/interfaces/todo';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
+import { faPlusCircle, faCheck, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
 	selector: 'app-home',
@@ -18,9 +19,13 @@ export class HomeComponent implements OnInit {
 	title: string = '';
 	startDate: string = '';
 	endDate: string = '';
-	group: string = '';
+	group: Array<string> = [];
 	filterForm: FormGroup;
 	pageTitle: string = 'Home';
+	faPlusCircle = faPlusCircle;
+	faCheck = faCheck;
+	faTrashCan = faTrashCan;
+	selected: [] = [];
 
 	constructor(
 		private ngxService: NgxUiLoaderService,
@@ -36,9 +41,10 @@ export class HomeComponent implements OnInit {
 			this.startDate = params['startDate'] ?? this.startDate;
 			this.endDate = params['endDate'] ?? this.endDate;
 			this.title = params['title'] ?? this.title;
-			this.group = params['group'] ?? this.group;
 			this.grouped = params['grouped'] ?? this.grouped;
 			this.pageTitle= params['pageTitle'] ?? this.pageTitle;
+			this.group = (params['group'] instanceof Array) ? params['group'] : (typeof params['group'] != 'undefined') ? [params['group']] : this.todos;
+			console.log(this.group);
 		});
 
 		// Refresh on query args change

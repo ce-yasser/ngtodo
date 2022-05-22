@@ -148,3 +148,13 @@ body {
   padding: 0;
   border: 0;
 }
+
+input,
+select {
+	background-color: var(--input-background);
+	border: none;
+	font-size: 0.888rem;
+	border-radius: 5px;
+	padding: 8px 10px;
+	width: 190px;
+}

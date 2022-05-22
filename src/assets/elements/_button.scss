@@ -1,0 +1,40 @@
+.button {
+  color: var(--color-contrast);
+  display: inline-flex;
+  vertical-align: middle;
+  column-gap: 5px;
+  border-radius: 5px;
+  padding: 7px 14px;
+  text-decoration: none;
+  outline: none;
+  font-weight: var(--font-weight-semibold);
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 0 0 0 0.3rem var(--highlight);
+    transition: box-shadow 145ms ease;
+  }
+
+  &--cta {
+    background-color: var(--color-cta);
+  }
+
+  &--label {
+    background-color: var(--color-label);
+  }
+
+  &--green {
+    background-color: var(--color-green);
+  }
+
+  &--red {
+    background-color: var(--color-red);
+  }
+
+  &:disabled {
+    background-color: var(--color-disabled);
+    pointer-events: none;
+  }
+}

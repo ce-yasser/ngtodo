@@ -84,7 +84,7 @@ export class TodosService {
 	 * Filter groups 
 	 * @param filters object contains start date, end date, title and group name
 	 */
-	getFilteredTodos(filters: { 'start': string, 'end': string, 'title': string, 'group': string }): Promise<Array<Todo>> {
+	getFilteredTodos(filters: { 'start': string, 'end': string, 'title': string, 'group': Array<string> }): Promise<Array<Todo>> {
 		return new Promise(resolve => {
 			this.getAll().then(todos => {
 				this.filterByTitle(todos, filters.title).then(titledTodos => {
@@ -121,12 +121,11 @@ export class TodosService {
 	 * @param todos 
 	 * @param group group name
 	 */
-	filterByGroup(todos: Array<Todo>, group: string): Promise<Array<Todo>> {
+	filterByGroup(todos: Array<Todo>, groups: Array<string>): Promise<Array<Todo>> {
 		return new Promise(resolve => {
-			if (!group) {
+			if (!groups.length) {
 				resolve(todos);
 			}
-			const groups = group.toLowerCase().split(',');
 			const filtered = todos.filter(todo => {
 				return groups.indexOf(todo.group.toLowerCase()) != -1;
 			});

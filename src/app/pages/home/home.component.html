@@ -1,32 +1,92 @@
 <app-top-bar [title]="pageTitle"></app-top-bar>
 <div class="container">
-	<a class="header-menu__url" routerLink="/add">Add</a>
-  <form class="card" (ngSubmit)="submitFilter()" [formGroup]="filterForm">
-    <input type="date" formControlName="startDate" [max]="filterForm.value['end']" />
-    <input type="date" formControlName="endDate" [min]="filterForm.value['start']" />
-    <input type="text" formControlName="title" />
-    <input type="text" formControlName="group" />
-    <button type="submit" [disabled]="!filterForm.valid">Filter</button>
+  <!-- Begin: Home Header -->
+  <div class="home-header">
+    <h2 class="home-header__title">Filter By</h2>
+    <a class="button button--cta" routerLink="/add">
+      <fa-icon [icon]='faPlusCircle'></fa-icon>
+      New Task
+    </a>
+  </div>
+  <!-- End: Home Header -->
+
+  <!-- Begin: Home Search Form -->
+  <form class="card home-form" (ngSubmit)="submitFilter()" [formGroup]="filterForm">
+    <div class="home-form__row">
+
+      <label class="home-form__label" for="startDate">
+        Start Date
+        <input type="date" formControlName="startDate" [max]="filterForm.value['end']" />
+      </label>
+      <label class="home-form__label" for="endDate">
+        End Date
+        <input type="date" formControlName="endDate" [min]="filterForm.value['start']" />
+      </label>
+      <label class="home-form__label" for="title">
+        Title
+        <input type="text" formControlName="title" />
+      </label>
+      <label class="home-form__label" for="group">
+        Group
+        <select multiple formControlName="group">
+          <option value="group1">group1</option>
+          <option value="group2">group2</option>
+          <option value="group3">group3</option>
+        </select>
+      </label>
+    </div>
+    <button class="button button--cta" type="submit" [disabled]="!filterForm.valid">Filter</button>
   </form>
+  <!-- End: Home Search Form -->
 
-
+  <!-- Begin: Grouped Content -->
   <div *ngIf="grouped == '1'">
-    <div class="home__container" *ngFor="let group of todos | keyvalue">
-      <h2>{{group?.key}}</h2>
-      <div class="home__cards">
+    <div class="home-container" *ngFor="let group of todos | keyvalue; let i = index">
+
+      <div class="home-container__header">
+        <h2 class="home-container__title button button--label">{{group?.key | titlecase }}</h2>
+        <div class="home-container__actions" *ngIf="i==0">
+          <button class="button button--red" [disabled]="selected.length == 0">
+            <fa-icon [icon]="faTrashCan"></fa-icon>
+            Delete Selected
+          </button>
+          <button class="button button--green" [disabled]="selected.length == 0">
+            <fa-icon [icon]="faCheck"></fa-icon>
+            Done
+          </button>
+        </div>
+      </div>
+
+      <div class="home-container__cards">
         <div *ngFor="let todo of group.value">
           <app-todo-card [todo]="todo"></app-todo-card>
         </div>
       </div>
     </div>
   </div>
+  <!-- End: Grouped Content -->
 
-  <div class="home__container" *ngIf="grouped !== '1'">
+	<!-- Begint: Listed Content -->
+  <div class="home-container" *ngIf="grouped !== '1'">
+    <div class="home-container__header">
+      <h2 class="home-container__title button button--label">All</h2>
+      <div class="home-container__actions">
+        <button class="button button--red" [disabled]="selected.length == 0">
+          <fa-icon [icon]="faTrashCan"></fa-icon>
+          Delete Selected
+        </button>
+        <button class="button button--green" [disabled]="selected.length == 0">
+          <fa-icon [icon]="faCheck"></fa-icon>
+          Done
+        </button>
+      </div>
+    </div>
     <div class="home__cards">
       <div *ngFor="let todo of todos">
         <app-todo-card [todo]="todo"></app-todo-card>
       </div>
     </div>
   </div>
+  <!-- End: Listed Content -->
 
 </div>
