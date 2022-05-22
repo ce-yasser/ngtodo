@@ -1,3 +1,9 @@
-<app-header></app-header>
-<router-outlet></router-outlet>
+<div class="layout" [class.openNav]="openNav">
+  <div class="sidenav">
+    <app-header (navStatus)="navStatusHandler($event)"></app-header>
+  </div>
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
+</div>
 <ngx-ui-loader></ngx-ui-loader>

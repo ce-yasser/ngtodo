@@ -1,27 +1,32 @@
-<form (ngSubmit)="submitFilter()" [formGroup]="filterForm">
-  <input type="date" formControlName="startDate" [max]="filterForm.value['end']" />
-  <input type="date" formControlName="endDate" [min]="filterForm.value['start']" />
-  <input type="text" formControlName="title" />
-  <input type="text" formControlName="group" />
-  <button type="submit" [disabled]="!filterForm.valid">Filter</button>
-</form>
+<app-top-bar [title]="pageTitle"></app-top-bar>
+<div class="container">
+	<a class="header-menu__url" routerLink="/add">Add</a>
+  <form class="card" (ngSubmit)="submitFilter()" [formGroup]="filterForm">
+    <input type="date" formControlName="startDate" [max]="filterForm.value['end']" />
+    <input type="date" formControlName="endDate" [min]="filterForm.value['start']" />
+    <input type="text" formControlName="title" />
+    <input type="text" formControlName="group" />
+    <button type="submit" [disabled]="!filterForm.valid">Filter</button>
+  </form>
 
 
-<div *ngIf="grouped == '1'">
-  <div class="home__container" *ngFor="let group of todos | keyvalue">
-    <h2>{{group?.key}}</h2>
+  <div *ngIf="grouped == '1'">
+    <div class="home__container" *ngFor="let group of todos | keyvalue">
+      <h2>{{group?.key}}</h2>
+      <div class="home__cards">
+        <div *ngFor="let todo of group.value">
+          <app-todo-card [todo]="todo"></app-todo-card>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="home__container" *ngIf="grouped !== '1'">
     <div class="home__cards">
-      <div *ngFor="let todo of group.value">
+      <div *ngFor="let todo of todos">
         <app-todo-card [todo]="todo"></app-todo-card>
       </div>
     </div>
   </div>
-</div>
 
-<div class="home__container" *ngIf="grouped !== '1'">
-  <div class="home__cards">
-    <div *ngFor="let todo of todos">
-      {{todo?.title}}
-    </div>
-  </div>
 </div>

@@ -1,13 +1,73 @@
-<nav class="menu">
-  <div class="navbar-nav">
-    <a class="nav-item nav-link" routerLink="/" [queryParams]="{'grouped': 1}">Home</a>
-    <a class="nav-item nav-link" routerLink="/" [queryParams]="{'grouped': 0}">All</a>
-    <a class="nav-item nav-link" routerLink="/" [queryParams]="{'startDate': today, 'endDate': today}">Today</a>
-    <a class="nav-item nav-link" routerLink="/" [queryParams]="{'startDate': today, 'endDate': week}">Week</a>
-    <a class="nav-item nav-link" routerLink="/" [queryParams]="{'grouped': 1}">Groups</a>
-    <a class="nav-item nav-link" routerLink="/" [queryParams]="{'group': 'group1'}">Group1</a>
-    <a class="nav-item nav-link" routerLink="/" [queryParams]="{'group': 'group2'}">Group2</a>
-    <a class="nav-item nav-link" routerLink="/" [queryParams]="{'group': 'group3'}">Group3</a>
-    <a class="nav-item nav-link" routerLink="/add">Add</a>
+<nav class="header" [class.open]="openNav">
+  <div class="header-bar">
+    <div class="header-bar__toggle" (click)="toggle()">
+      <fa-icon [icon]="faNavicon"></fa-icon>
+    </div>
   </div>
+  <ul class="header-menu">
+    <li class="header-menu__item">
+      <a class="header-menu__url" routerLink="/" [queryParams]="{'grouped': 1, 'pageTitle': 'Home'}">
+        <fa-icon [icon]="faHouse"></fa-icon>
+        <span class="header-menu__text">Home</span>
+      </a>
+    </li>
+    <li class="header-menu__item">
+      <a class="header-menu__url" routerLink="/" [queryParams]="{'grouped': 0, 'pageTitle': 'All'}">
+        <fa-icon [icon]="faList"></fa-icon>
+        <span class="header-menu__text">All</span>
+      </a>
+    </li>
+    <li class="header-menu__item">
+      <a class="header-menu__url" routerLink="/"
+        [queryParams]="{'startDate': today, 'endDate': today, 'pageTitle': 'Today'}">
+        <fa-icon [icon]="faCalendarDay"></fa-icon>
+        <span class="header-menu__text">Today</span>
+      </a>
+    </li>
+    <li class="header-menu__item">
+      <a class="header-menu__url" routerLink="/"
+        [queryParams]="{'startDate': today, 'endDate': week, 'pageTitle': 'Week'}">
+        <fa-icon [icon]="faCalendarWeek"></fa-icon>
+        <span class="header-menu__text">Week</span>
+      </a>
+    </li>
+    <li class="header-menu__item">
+      <a class="header-menu__url" routerLink="/" [queryParams]="{'status': 1, 'pageTitle': 'Done'}">
+        <fa-icon [icon]="faCheckCircle"></fa-icon>
+        <span class="header-menu__text">Done</span>
+      </a>
+    </li>
+    <li class="header-menu__item">
+      <a class="header-menu__url" routerLink="/" [queryParams]="{'archive': 1, 'pageTitle': 'Deleted'}">
+        <fa-icon [icon]="faTrashCan"></fa-icon>
+        <span class="header-menu__text">Deleted</span>
+      </a>
+    </li>
+    <li class="header-menu__item" [class.openGroups]="openGroups">
+      <a class="header-menu__url" (click)="toggleGroups()">
+        <fa-icon [icon]="faFolder"></fa-icon>
+        <span class="header-menu__text">
+          Groups
+					<fa-icon class="header-menu__angle" [icon]="faAngleDown"></fa-icon>
+        </span>
+      </a>
+      <ul class="header-menu__submenu">
+        <li class="header-menu__item">
+          <a class="header-menu__url" routerLink="/" [queryParams]="{'group': 'group1', 'pageTitle': 'Group: Group1'}">
+            <span class="header-menu__text">Group1</span>
+          </a>
+        </li>
+        <li class="header-menu__item">
+          <a class="header-menu__url" routerLink="/" [queryParams]="{'group': 'group2', 'pageTitle': 'Group: Group2'}">
+            <span class="header-menu__text">Group2</span>
+          </a>
+        </li>
+        <li class="header-menu__item">
+          <a class="header-menu__url" routerLink="/" [queryParams]="{'group': 'group3', 'pageTitle': 'Group: Group2'}">
+            <span class="header-menu__text">Group3</span>
+          </a>
+        </li>
+      </ul>
+    </li>
+  </ul>
 </nav>

@@ -1,0 +1,10 @@
+.top-bar {
+  background-color: var(--color-nav-dark);
+  font-size: 1.222rem;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  color: var(--color-contrast);
+  padding-left: var(--content-gutter);
+  padding-right: var(--content-gutter);
+}

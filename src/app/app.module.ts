@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, Title } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxUiLoaderModule } from "ngx-ui-loader";
 
@@ -11,6 +11,7 @@ import { TodoComponent } from './pages/todo/todo.component';
 import { HeaderComponent } from './components/header/header.component';
 import { HomeComponent } from './pages/home/home.component';
 import { TodoCardComponent } from './components/todo-card/todo-card.component';
+import { TopBarComponent } from './components/top-bar/top-bar.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { TodoCardComponent } from './components/todo-card/todo-card.component';
     TodoComponent,
     HeaderComponent,
     HomeComponent,
-    TodoCardComponent
+    TodoCardComponent,
+    TopBarComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +30,9 @@ import { TodoCardComponent } from './components/todo-card/todo-card.component';
 		ReactiveFormsModule,
 		NgxUiLoaderModule
   ],
-  providers: [],
+  providers: [
+		Title
+	],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

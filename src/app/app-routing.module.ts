@@ -5,9 +5,9 @@ import { HomeComponent } from './pages/home/home.component';
 import { TodoComponent } from './pages/todo/todo.component';
 
 const routes: Routes = [
-	{ path: '', component: HomeComponent },
-	{ path: 'add', component: AddTodoComponent },
-	{ path: 'todo/:Id', component: TodoComponent },
+	{ path: '', component: HomeComponent, data: {title:'Home'} },
+	{ path: 'add', component: AddTodoComponent, data: { title: 'Add Task' } },
+	{ path: 'todo/:Id', component: TodoComponent, data: { title: 'Todo' } },
 ];
 
 @NgModule({

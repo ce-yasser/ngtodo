@@ -1,30 +1,36 @@
-<button (click)="goBack()">Back</button>
-<button (click)="taskForm.reset()">Clear</button>
+<app-top-bar [title]="'Add new Todo'"></app-top-bar>
+<div class="container">
+  <div class="card">
+    <button (click)="goBack()">Back</button>
+    <button (click)="taskForm.reset()">Clear</button>
 
-<form (ngSubmit)="submit()" [formGroup]="taskForm">
-  <div [class.error]="taskForm.get('title')?.touched && taskForm.get('title')?.invalid">
-    <input type="text" formControlName="title">
-  </div>
-  <div [class.error]="taskForm.get('description')?.touched && taskForm.get('description')?.invalid">
-    <textarea type="text" formControlName="description"></textarea>
-  </div>
+    <form (ngSubmit)="submit()" [formGroup]="taskForm">
+      <div [class.error]="taskForm.get('title')?.touched && taskForm.get('title')?.invalid">
+        <input type="text" formControlName="title">
+      </div>
+      <div [class.error]="taskForm.get('description')?.touched && taskForm.get('description')?.invalid">
+        <textarea type="text" formControlName="description"></textarea>
+      </div>
 
-  <div [class.error]="taskForm.get('deliveryDate')?.touched && taskForm.get('deliveryDate')?.invalid">
-    <input type="date" formControlName="deliveryDate" min="{{today | date: 'yyyy-MM-dd'}}">
-  </div>
+      <div [class.error]="taskForm.get('deliveryDate')?.touched && taskForm.get('deliveryDate')?.invalid">
+        <input type="date" formControlName="deliveryDate" min="{{today | date: 'yyyy-MM-dd'}}">
+      </div>
 
-  <div [class.error]="taskForm.get('group')?.touched && taskForm.get('group')?.invalid">
-    <select formControlName="group">
-      <option *ngFor="let group of groups" value="{{group}}">{{group | titlecase }}</option>
-    </select>
-  </div>
+      <div [class.error]="taskForm.get('group')?.touched && taskForm.get('group')?.invalid">
+        <select formControlName="group">
+          <option *ngFor="let group of groups" value="{{group}}">{{group | titlecase }}</option>
+        </select>
+      </div>
 
-  <div [class.error]="taskForm.get('priority')?.touched && taskForm.get('priority')?.invalid">
-    <label *ngFor="let priority of priorities | keyvalue" for="{{priority.value}}">
-      {{priority.value}}
-      <input type="radio" value="{{priority.key}}" id="{{priority.value}}" formControlName="priority">
-    </label>
-  </div>
+      <div [class.error]="taskForm.get('priority')?.touched && taskForm.get('priority')?.invalid">
+        <label *ngFor="let priority of priorities | keyvalue" for="{{priority.value}}">
+          {{priority.value}}
+          <input type="radio" value="{{priority.key}}" id="{{priority.value}}" formControlName="priority">
+        </label>
+      </div>
 
-  <button type="submit" [disabled]="!taskForm.valid">Add Task</button>
-</form>
+      <button type="submit" [disabled]="!taskForm.valid">Add Task</button>
+    </form>
+
+  </div>
+</div>

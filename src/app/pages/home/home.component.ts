@@ -3,7 +3,8 @@ import { TodosService } from 'src/app/services/todos.service';
 import { NgxUiLoaderService } from "ngx-ui-loader";
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Todo } from 'src/app/interfaces/todo';
-import { FormGroup, FormControl} from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 
 @Component({
 	selector: 'app-home',
@@ -19,20 +20,25 @@ export class HomeComponent implements OnInit {
 	endDate: string = '';
 	group: string = '';
 	filterForm: FormGroup;
+	pageTitle: string = 'Home';
 
 	constructor(
 		private ngxService: NgxUiLoaderService,
 		private route: ActivatedRoute,
 		private router: Router,
 		private activatedRoute: ActivatedRoute,
-		private todosService: TodosService
+		private todosService: TodosService,
+		private titleService: Title
 	) {
+
+		// Set params variables
 		this.route.queryParams.subscribe(params => {
 			this.startDate = params['startDate'] ?? this.startDate;
 			this.endDate = params['endDate'] ?? this.endDate;
 			this.title = params['title'] ?? this.title;
 			this.group = params['group'] ?? this.group;
 			this.grouped = params['grouped'] ?? this.grouped;
+			this.pageTitle= params['pageTitle'] ?? this.pageTitle;
 		});
 
 		// Refresh on query args change
@@ -40,6 +46,7 @@ export class HomeComponent implements OnInit {
 			return false;
 		};
 
+		// Set search form variables
 		this.filterForm = new FormGroup({
 			startDate: new FormControl(this.startDate),
 			endDate: new FormControl(this.endDate),
@@ -54,6 +61,7 @@ export class HomeComponent implements OnInit {
 			this.ngxService.stop();
 			this.todos = todos;
 		});
+		this.titleService.setTitle(this.pageTitle);
 	}
 
 	refreshTodos(): Promise<any> {

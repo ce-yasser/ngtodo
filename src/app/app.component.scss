@@ -1,0 +1,18 @@
+.layout {
+  display: grid;
+	min-height: 100vh;
+  transition: 0.5s linear;
+
+  &.openNav {
+    grid-template-columns: clamp(150px, 25%, 290px) 1fr;
+  }
+
+  grid-template-columns: 50px 1fr;
+
+}
+
+.sidenav {
+  background-color: var(--color-sidenav-background);
+}
+
+.content {}

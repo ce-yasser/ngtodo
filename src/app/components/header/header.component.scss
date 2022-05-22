@@ -1,0 +1,118 @@
+.header {
+  display: block;
+  position: relative;
+  overflow: hidden;
+
+  &-bar {
+    display: flex;
+    height: 60px;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-nav);
+    font-size: 1.333rem;
+    color: var(--color-contrast);
+
+    &__toggle {
+      cursor: pointer;
+    }
+
+    .open & {
+      justify-content: flex-start;
+      padding-left: var(--sidenav-gutter);
+      padding-right: var(--sidenav-gutter);
+    }
+  }
+
+  &-menu {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin-top: 15px;
+    list-style: none;
+
+
+    &__url {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      color: var(--color-text);
+      text-decoration: none;
+      column-gap: 20px;
+      padding-top: 12px;
+      padding-bottom: 12px;
+      cursor: pointer;
+      transition: 0.3s ease-out;
+
+      .open & {
+        justify-content: flex-start;
+        padding-left: var(--sidenav-gutter);
+        padding-right: var(--sidenav-gutter);
+      }
+    }
+
+    &__text {
+      display: flex;
+      flex-grow: 1;
+      justify-content: space-between;
+      align-items: center;
+      position: absolute;
+      transform: translateX(-100%);
+      opacity: 0;
+
+      .open & {
+        position: relative;
+        transform: translateX(0);
+        opacity: 1;
+        transition: 0.2s ease-in;
+      }
+    }
+
+    &__item {
+      transition: 0.3s ease-out;
+
+      &:hover {
+        background-color: var(--color-nav-light);
+
+        >.header-menu__url {
+          color: var(--color-label);
+        }
+      }
+    }
+
+    &__submenu {
+      display: none;
+      background-color: var(--color-sidenav-background);
+
+      .openGroups & {
+        display: block;
+      }
+
+      .header-menu__url {
+        border-bottom: 1px solid currentColor;
+        padding-left: 0;
+        padding-right: 0;
+
+      }
+
+      .header-menu__item {
+        padding-left: calc(var(--sidenav-gutter) * 2);
+        padding-right: var(--sidenav-gutter);
+
+        &:last-child {
+          .header-menu__url {
+            border-bottom: none;
+          }
+        }
+      }
+    }
+
+    &__angle {
+      transition: 0.3s ease-out;
+
+      .openGroups & {
+        transform: scale(-1);
+      }
+    }
+  }
+}

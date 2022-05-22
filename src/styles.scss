@@ -4,6 +4,7 @@
  -----------------
  * 1. Variables
  * 2. Typography
+ * 3. Helpers
 **/
 /**
  1. Variables
@@ -16,3 +17,9 @@
  * Global css rules and reset css
 **/
 @import 'assets/typography';
+
+/**
+ 3. Helpers
+ * Helper classess
+**/
+@import 'assets/helpers';
