@@ -5,5 +5,6 @@ export interface Todo {
 	deliveryDate: string,
 	priority: string,
 	status: string,
-	id: string
+	id: string,
+	archive: string
 }

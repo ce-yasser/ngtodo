@@ -11,9 +11,12 @@ import { filter } from 'rxjs';
 })
 export class AppComponent implements OnInit {
 	openNav: boolean = true;
-	constructor(private router: Router,
+
+	constructor(
+		private router: Router,
 		private activatedRoute: ActivatedRoute,
-		private titleService: Title) {
+		private titleService: Title
+	) {
 		this.router.events.pipe(
 			filter(event => event instanceof NavigationEnd),
 		).subscribe(() => {
@@ -23,9 +26,11 @@ export class AppComponent implements OnInit {
 			});
 		});
 
-
 	}
-	ngOnInit(): void { }
+	ngOnInit(): void {
+		let navStatus = localStorage.getItem('nav');
+		this.openNav = navStatus == null ? true : navStatus === 'true';
+	}
 
 	getChild(activatedRoute: ActivatedRoute): any {
 		if (activatedRoute.firstChild) {
@@ -37,6 +42,5 @@ export class AppComponent implements OnInit {
 
 	navStatusHandler(navStatus: boolean) {
 		this.openNav = navStatus;
-		console.log(this.openNav);
 	}
 }

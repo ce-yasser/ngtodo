@@ -19,7 +19,7 @@ export class TodoCardComponent implements OnInit {
 		private router: Router,
 		private ngxService: NgxUiLoaderService,
 		private todosService: TodosService
-	) {}
+	) { }
 
 	ngOnInit(): void {
 	}
@@ -28,10 +28,17 @@ export class TodoCardComponent implements OnInit {
 		this.router.navigate(['/todo', id]);
 	}
 
-	updateStatus(todo: Todo) {
+	updateStatus() {
 		this.ngxService.start();
-		this.todosService.markDone(todo.id).then(status => {
+		this.todosService.markDone(this.todo.id).then(status => {
 			this.todo.status = status;
+			this.ngxService.stop();
+		})
+	}
+
+	deleteTodo() {
+		this.ngxService.start();
+		this.todosService.delete(this.todo.id).then(() => {
 			this.ngxService.stop();
 		})
 	}

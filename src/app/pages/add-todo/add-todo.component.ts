@@ -37,6 +37,7 @@ export class AddTodoComponent implements OnInit {
 			priority: new FormControl(String(10), [Validators.required]),
 			status: new FormControl('0', [Validators.required]),
 			id: new FormControl(this.id, [Validators.required]),
+			archive: new FormControl('0', [Validators.required]),
 		});
 
 	}

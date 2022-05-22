@@ -20,6 +20,17 @@ export class TodosService {
 	}
 
 	/**
+	 * Get Archived todos
+	 */
+	getArchived(): Promise<Array<Todo>> {
+		let localstorage: string = localStorage.getItem('archivedTodos') ?? '';
+		const todos: Array<Todo> = localstorage ? JSON.parse(localstorage) : [];
+		return new Promise(resolve => {
+			resolve(todos);
+		});
+	}
+
+	/**
 	 * Create todo
 	 * @param todo 
 	 */
@@ -33,6 +44,10 @@ export class TodosService {
 		});
 	}
 
+	/**
+	 * Change todo status to '1'
+	 * @param id todo id
+	 */
 	markDone(id: string): Promise<string> {
 		return new Promise(resolve => {
 			this.getAll().then(todos => {
@@ -44,6 +59,37 @@ export class TodosService {
 				});
 				localStorage.setItem('todos', JSON.stringify(newTodos));
 				resolve('1');
+			})
+		});
+	}
+
+	delete(id: string): Promise<string> {
+		return new Promise(resolve => {
+			this.getAll().then(todos => {
+				const allTodos = todos.filter( todo =>{
+					console.log(todo.id != id);
+					if(todo.id == id) {
+						todo.archive = '1';
+						this.addToArchive(todo);
+					}
+					return todo.id != id;
+				});
+				localStorage.setItem('todos', JSON.stringify(allTodos));
+				resolve('true');
+			})
+		});
+	}
+
+	/**
+	 * Create todo
+	 * @param todo 
+	 */
+	addToArchive(todo: Todo): Promise<string> {
+		return new Promise(resolve => {
+			this.getArchived().then(todos => {
+				todos.push(todo);
+				localStorage.setItem('archivedTodos', JSON.stringify(todos));
+				resolve(todo.id);
 			})
 		});
 	}
@@ -84,13 +130,16 @@ export class TodosService {
 	 * Filter groups 
 	 * @param filters object contains start date, end date, title and group name
 	 */
-	getFilteredTodos(filters: { 'start': string, 'end': string, 'title': string, 'group': Array<string> }): Promise<Array<Todo>> {
+	getFilteredTodos(filters: { archive: string, 'start': string, 'end': string, 'title': string, 'status': string, 'group': Array<string> }): Promise<Array<Todo>> {
 		return new Promise(resolve => {
-			this.getAll().then(todos => {
+			const getTodos = filters.archive === '1' ? this.getArchived() : this.getAll();
+			getTodos.then(todos => {
 				this.filterByTitle(todos, filters.title).then(titledTodos => {
-					this.filterByGroup(titledTodos, filters.group).then(groupTodos => {
-						this.filterByDate(groupTodos, filters.start, filters.end).then(filteredTodos => {
-							resolve(filteredTodos);
+					this.filterByStatus(titledTodos, filters.status).then(statusTodos => {
+						this.filterByGroup(statusTodos, filters.group).then(groupTodos => {
+							this.filterByDate(groupTodos, filters.start, filters.end).then(filteredTodos => {
+								resolve(filteredTodos);
+							});
 						});
 					});
 				});
@@ -110,6 +159,24 @@ export class TodosService {
 			}
 			const filtered = todos.filter(todo => {
 				return todo.title.toLowerCase().includes(title.toLowerCase());
+			});
+
+			resolve(filtered);
+		});
+	}
+
+	/**
+	 * Filter by Status
+	 * @param todos 
+	 * @param status if status equals '1', then get done todos
+	 */
+	filterByStatus(todos: Array<Todo>, status: string): Promise<Array<Todo>> {
+		return new Promise(resolve => {
+			if (!status) {
+				resolve(todos);
+			}
+			const filtered = todos.filter(todo => {
+				return todo.status === status;
 			});
 
 			resolve(filtered);
@@ -156,6 +223,4 @@ export class TodosService {
 			resolve(filtered);
 		});
 	}
-
-
 }

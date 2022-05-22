@@ -14,7 +14,8 @@ import { faPlusCircle, faCheck, faTrashCan } from '@fortawesome/free-solid-svg-i
 })
 export class HomeComponent implements OnInit {
 	todos: any[] = [];
-	sorting: object | boolean = false;
+	archive: string = '';
+	status: string = '';
 	grouped: string = '1';
 	title: string = '';
 	startDate: string = '';
@@ -38,12 +39,14 @@ export class HomeComponent implements OnInit {
 
 		// Set params variables
 		this.route.queryParams.subscribe(params => {
+			this.archive = params['archive'] ?? this.archive;
 			this.startDate = params['startDate'] ?? this.startDate;
 			this.endDate = params['endDate'] ?? this.endDate;
-			this.title = params['title'] ?? this.title;
-			this.grouped = params['grouped'] ?? this.grouped;
-			this.pageTitle= params['pageTitle'] ?? this.pageTitle;
 			this.group = (params['group'] instanceof Array) ? params['group'] : (typeof params['group'] != 'undefined') ? [params['group']] : this.todos;
+			this.title = params['title'] ?? this.title;
+			this.status = params['status'] ?? this.status;
+			this.grouped = params['grouped'] ?? this.grouped;
+			this.pageTitle = params['pageTitle'] ?? this.pageTitle;
 		});
 
 		// Refresh on query args change
@@ -71,7 +74,7 @@ export class HomeComponent implements OnInit {
 
 	refreshTodos(): Promise<any> {
 		return new Promise(resolve => {
-			this.todosService.getFilteredTodos({ 'start': this.startDate, 'end': this.endDate, 'title': this.title, 'group': this.group }).then(filteredTodos => {
+			this.todosService.getFilteredTodos({ 'archive': this.archive, 'start': this.startDate, 'end': this.endDate, 'title': this.title, 'status': this.status, 'group': this.group }).then(filteredTodos => {
 				resolve(this.getTodos(filteredTodos));
 			});
 		});

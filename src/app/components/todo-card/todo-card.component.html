@@ -1,4 +1,4 @@
-<div class="todo-card card" [class.disabled]="todo?.status == '1'">
+<div class="todo-card card" [class.done]="todo?.status == '1'" [class.deleted]="todo?.archive == '1'">
   <input class="todo-card__input" type="checkbox" [id]="todo?.id + '_checkbox'">
   <label class="todo-card__label" [for]="todo?.id + '_checkbox'">
     <div class="todo-card__checkbox">
@@ -10,7 +10,7 @@
 	</div>
 
   <div class="todo-card__actions">
-    <fa-icon class="todo-card__button todo-card__button--delete" [icon]="faTrashCan"></fa-icon>
-    <fa-icon class="todo-card__button todo-card__button--complete" [icon]="faCheck" (click)="updateStatus(todo)"></fa-icon>
+    <fa-icon class="todo-card__button todo-card__button--delete" [icon]="faTrashCan" (click)="deleteTodo()"></fa-icon>
+    <fa-icon class="todo-card__button todo-card__button--complete" [icon]="faCheck" (click)="updateStatus()"></fa-icon>
   </div>
 </div>

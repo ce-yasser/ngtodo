@@ -29,8 +29,7 @@ export class HeaderComponent implements OnInit {
 
 	ngOnInit(): void {
 		let navStatus = localStorage.getItem('nav');
-		this.openNav = navStatus === 'true';
-		this.navStatus.emit(this.openNav);
+		this.openNav = navStatus == null ? true : navStatus === 'true';
 	}
 
 	toggle() {

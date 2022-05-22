@@ -1,6 +1,6 @@
 .todo-card {
-	padding-bottom: 0;
-	padding-top: 0;
+  padding-bottom: 0;
+  padding-top: 0;
   border-radius: 2px;
   display: flex;
   align-items: center;
@@ -31,7 +31,7 @@
     display: flex;
     align-items: center;
 
-    .disabled & {
+    .done & {
       text-decoration: line-through;
     }
   }
@@ -78,6 +78,11 @@
       &:hover {
         color: var(--color-red);
       }
+
+      .deleted & {
+        pointer-events: none;
+        background-color: var(--color-disabled);
+      }
     }
 
     &--complete {
@@ -87,7 +92,8 @@
         color: var(--color-green);
       }
 
-      .disabled & {
+      .deleted &,
+      .done & {
         pointer-events: none;
         background-color: var(--color-disabled);
       }
