@@ -1,6 +1,7 @@
 .button {
   color: var(--color-contrast);
   display: inline-flex;
+	justify-content: center;
   vertical-align: middle;
   column-gap: 5px;
   border-radius: 5px;

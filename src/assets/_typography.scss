@@ -149,12 +149,24 @@ body {
   border: 0;
 }
 
-input,
+textarea,
+input[type=text],
+input[type=email],
+input[type=date],
+input[type=password],
 select {
-	background-color: var(--input-background);
-	border: none;
-	font-size: 0.888rem;
-	border-radius: 5px;
-	padding: 8px 10px;
-	width: 190px;
+  background-color: var(--input-background);
+  border: none;
+  font-size: 0.888rem;
+  border-radius: 5px;
+  padding: 8px 10px;
+  width: 190px;
+}
+
+textarea {
+  resize: none;
+}
+
+select[multiple] {
+	height: 74px;
 }

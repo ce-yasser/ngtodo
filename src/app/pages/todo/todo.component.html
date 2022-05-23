@@ -1,10 +1,20 @@
 <app-top-bar [title]="'Todo'"></app-top-bar>
 <div class="container">
-	<div class="card">
-		<h1>{{todo?.title}}</h1>
-		<p>{{todo?.description}}</p>
-		<p>{{todo?.deliveryDate | date: 'dd-MM-yyyy'}}</p>
-		<p>{{todo?.group | titlecase}}</p>
-		<p>{{todo?.priority}}</p>
-	</div>
+  <div class="card todo">
+    <h1 class="todo__title">
+      <fa-icon [icon]="faClipboardList"></fa-icon> {{todo?.title}}
+    </h1>
+    <p class="todo__description">
+      {{todo?.description}}
+    </p>
+    <p>
+      <fa-icon [icon]="faCalendar"></fa-icon> Delivery Date: {{todo?.deliveryDate | date: 'dd-MM-yyyy'}}
+    </p>
+    <p>
+      <fa-icon [icon]="faFolder"></fa-icon> Group: {{todo?.group | titlecase}}
+    </p>
+    <p>
+      <fa-icon [icon]="faBoltLightning"></fa-icon> Priority: {{todo?.priority}}
+    </p>
+  </div>
 </div>

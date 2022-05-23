@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
 		).subscribe(() => {
 			const rt = this.getChild(this.activatedRoute);
 			rt.data.subscribe((data: any) => {
-				this.titleService.setTitle(data.title)
+				this.titleService.setTitle(data.title);
 			});
 		});
 

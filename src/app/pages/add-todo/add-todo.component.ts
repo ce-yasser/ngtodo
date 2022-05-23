@@ -4,6 +4,8 @@ import { FormGroup, FormControl, Validators, ValidatorFn, AbstractControl } from
 import { NgxUiLoaderService } from "ngx-ui-loader";
 import { TodosService } from 'src/app/services/todos.service';
 import { Router } from '@angular/router';
+import { faBroom, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
+
 
 @Component({
 	selector: 'app-add-todo',
@@ -14,14 +16,12 @@ export class AddTodoComponent implements OnInit {
 	taskForm: FormGroup;
 	today = (new Date()).setHours(0, 0, 0, 0);
 
-	priorities = {
-		0: 'low',
-		10: 'medium',
-		20: 'high'
-	};
+	priorities = ['low', 'medium', 'high'];
 
 	groups = ['group1', 'group2', 'group3'];
 	id: string = Math.random().toString(16).slice(2);
+	faBroom = faBroom;
+	faAngleLeft = faAngleLeft;
 
 	constructor(
 		private ngxService: NgxUiLoaderService,
@@ -34,15 +34,15 @@ export class AddTodoComponent implements OnInit {
 			description: new FormControl('', [Validators.required]),
 			group: new FormControl(this.groups[0], [Validators.required]),
 			deliveryDate: new FormControl(formatDate(this.today, 'yyyy-MM-dd', 'en'), [Validators.required, this.dateCheck()]),
-			priority: new FormControl(String(10), [Validators.required]),
-			status: new FormControl('0', [Validators.required]),
+			priority: new FormControl('medium', [Validators.required]),
 			id: new FormControl(this.id, [Validators.required]),
+			status: new FormControl('0', [Validators.required]),
 			archive: new FormControl('0', [Validators.required]),
 		});
 
 	}
 
-	ngOnInit(): void {}
+	ngOnInit(): void { }
 
 	submit() {
 		this.ngxService.start();

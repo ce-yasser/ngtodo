@@ -1,3 +1,40 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.form {
+  &__row {
+    margin-bottom: 20px;
+  }
+
+  &__label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: var(--font-weight-semibold);
+  }
+
+  &__input {
+    width: 100%;
+  }
+
+  &__textarea {
+    width: 100%;
+    height: 200px;
+  }
+
+  &__submit {
+    align-self: flex-start;
+
+  }
+}
+
 .error {
-	background-color: red;
+
+  input,
+  textarea,
+  select {
+    box-shadow: 0 0 0 3px var(--color-red);
+  }
 }

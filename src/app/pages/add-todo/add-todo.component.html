@@ -1,36 +1,53 @@
 <app-top-bar [title]="'Add new Todo'"></app-top-bar>
 <div class="container">
+  <div class="header">
+    <button class="button button--label" (click)="goBack()">
+      <fa-icon [icon]="faAngleLeft"></fa-icon>Back
+    </button>
+    <button class="button button--green" (click)="taskForm.reset({id: id, archive: '0',status: '0'})">
+      <fa-icon [icon]="faBroom"></fa-icon>Clear
+    </button>
+  </div>
   <div class="card">
-    <button (click)="goBack()">Back</button>
-    <button (click)="taskForm.reset()">Clear</button>
+    <!-- Begin: Add Todo Form -->
+    <form class="form" (ngSubmit)="submit()" [formGroup]="taskForm">
 
-    <form (ngSubmit)="submit()" [formGroup]="taskForm">
-      <div [class.error]="taskForm.get('title')?.touched && taskForm.get('title')?.invalid">
-        <input type="text" formControlName="title">
-      </div>
-      <div [class.error]="taskForm.get('description')?.touched && taskForm.get('description')?.invalid">
-        <textarea type="text" formControlName="description"></textarea>
+      <div class="form__row" [class.error]="taskForm.get('title')?.touched && taskForm.get('title')?.invalid">
+        <label for="title" class="form__label">Title:</label>
+        <input class="form__input" type="text" formControlName="title" id="title">
       </div>
 
-      <div [class.error]="taskForm.get('deliveryDate')?.touched && taskForm.get('deliveryDate')?.invalid">
-        <input type="date" formControlName="deliveryDate" min="{{today | date: 'yyyy-MM-dd'}}">
+      <div class="form__row"
+        [class.error]="taskForm.get('description')?.touched && taskForm.get('description')?.invalid">
+        <label for="description" class="form__label">Description:</label>
+        <textarea class="form__textarea" formControlName="description" id="description"></textarea>
       </div>
 
-      <div [class.error]="taskForm.get('group')?.touched && taskForm.get('group')?.invalid">
-        <select formControlName="group">
+      <div class="form__row"
+        [class.error]="taskForm.get('deliveryDate')?.touched && taskForm.get('deliveryDate')?.invalid">
+        <label for="deliveryDate" class="form__label">Delivery Date:</label>
+        <input class="form__input" type="date" id="deliveryDate" formControlName="deliveryDate"
+          min="{{today | date: 'yyyy-MM-dd'}}">
+      </div>
+
+      <div class="form__row" [class.error]="taskForm.get('group')?.touched && taskForm.get('group')?.invalid">
+        <label for="group" class="form__label">Group:</label>
+        <select class="form__input" id="group" formControlName="group">
           <option *ngFor="let group of groups" value="{{group}}">{{group | titlecase }}</option>
         </select>
       </div>
 
-      <div [class.error]="taskForm.get('priority')?.touched && taskForm.get('priority')?.invalid">
-        <label *ngFor="let priority of priorities | keyvalue" for="{{priority.value}}">
-          {{priority.value}}
-          <input type="radio" value="{{priority.key}}" id="{{priority.value}}" formControlName="priority">
+      <div class="form__row" [class.error]="taskForm.get('priority')?.touched && taskForm.get('priority')?.invalid">
+        <h4 class="form__label">Priority:</h4>
+        <label *ngFor="let priority of priorities" for="{{priority}}">
+          {{priority | titlecase}}
+          <input type="radio" value="{{priority}}" id="{{priority}}" formControlName="priority">
         </label>
       </div>
 
-      <button type="submit" [disabled]="!taskForm.valid">Add Task</button>
+      <button class="button button--cta form__submit" type="submit" [disabled]="!taskForm.valid">Add Task</button>
     </form>
+    <!-- End: Add Todo Form -->
 
   </div>
 </div>

@@ -1,0 +1,16 @@
+.todo {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+
+  &__title {
+    font-size: 1.333rem;
+    font-weight: var(--font-weight-semibold);
+  }
+
+	&__description {
+		border-bottom: 1px solid currentColor;
+		padding-bottom: 20px;
+		margin-bottom: 10px;
+	}
+}
