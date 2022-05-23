@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Todo } from 'src/app/interfaces/todo';
 import { faCheck, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
@@ -12,7 +12,9 @@ import { NgxUiLoaderService } from "ngx-ui-loader";
 })
 export class TodoCardComponent implements OnInit {
 	@Input() todo: Todo;
+
 	faCheck = faCheck;
+	@Output() selectedId: EventEmitter<any> = new EventEmitter();
 	faTrashCan = faTrashCan;
 
 	constructor(
@@ -38,8 +40,13 @@ export class TodoCardComponent implements OnInit {
 
 	deleteTodo() {
 		this.ngxService.start();
-		this.todosService.delete(this.todo.id).then(() => {
+		this.todosService.delete(this.todo.id).then(archive => {
+			this.todo.archive = archive;
 			this.ngxService.stop();
 		})
+	}
+
+	onCheckChange(e: any) {
+		this.selectedId.emit({ 'selected': e.target.checked, 'id': this.todo.id });
 	}
 }

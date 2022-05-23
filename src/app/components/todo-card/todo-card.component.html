@@ -1,5 +1,5 @@
 <div class="todo-card card" [class.done]="todo?.status == '1'" [class.deleted]="todo?.archive == '1'">
-  <input class="todo-card__input" type="checkbox" [id]="todo?.id + '_checkbox'">
+  <input class="todo-card__input" type="checkbox" [id]="todo?.id + '_checkbox'" (change)="onCheckChange($event)">
   <label class="todo-card__label" [for]="todo?.id + '_checkbox'">
     <div class="todo-card__checkbox">
       <fa-icon [icon]="faCheck"></fa-icon>

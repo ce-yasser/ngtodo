@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
 	faPlusCircle = faPlusCircle;
 	faCheck = faCheck;
 	faTrashCan = faTrashCan;
-	selected: [] = [];
+	selected: Array<string> = [];
 
 	constructor(
 		private ngxService: NgxUiLoaderService,
@@ -101,5 +101,35 @@ export class HomeComponent implements OnInit {
 				queryParams: queryParams,
 				queryParamsHandling: 'merge', // remove to replace all query params by provided
 			});
+	}
+
+	selectedIdHandler(obj: any) {
+		if (obj.selected) {
+			if (this.selected.indexOf(obj.id) == -1) {
+				this.selected.push(obj.id);
+			}
+		}
+		if (!obj.selected) {
+			this.selected = this.selected.filter(id => id !== obj.id);
+		}
+	}
+
+	updateSelected() {
+		this.ngxService.start();
+		this.todosService.markDone(this.selected).then(() => {
+			this.refreshTodos().then(todos => {
+				this.ngxService.stop();
+				this.todos = todos;
+			});
+		});
+	}
+	deleteSelected() {
+		this.ngxService.start();
+		this.todosService.delete(this.selected).then(() => {
+			this.refreshTodos().then(todos => {
+				this.ngxService.stop();
+				this.todos = todos;
+			});
+		});
 	}
 }

@@ -45,12 +45,12 @@
 
       <div class="home-container__header">
         <h2 class="home-container__title button button--label">{{group?.key | titlecase }}</h2>
-        <div class="home-container__actions" *ngIf="i==0">
-          <button class="button button--red" [disabled]="selected.length == 0">
+        <div class="home-container__actions" *ngIf="i==0 && archive!='1'">
+          <button class="button button--red" (click)="deleteSelected()" [disabled]="selected.length == 0">
             <fa-icon [icon]="faTrashCan"></fa-icon>
             Delete Selected
           </button>
-          <button class="button button--green" [disabled]="selected.length == 0">
+          <button class="button button--green" (click)="updateSelected()" [disabled]="selected.length == 0">
             <fa-icon [icon]="faCheck"></fa-icon>
             Done
           </button>
@@ -59,23 +59,24 @@
 
       <div class="home-container__cards">
         <div *ngFor="let todo of group.value">
-          <app-todo-card [todo]="todo"></app-todo-card>
+          <app-todo-card *ngIf="(todo.archive != '1' && archive != '1')|| (todo.archive === '1' && archive ==='1')"
+            [todo]="todo" (selectedId)="selectedIdHandler($event)"></app-todo-card>
         </div>
       </div>
     </div>
   </div>
   <!-- End: Grouped Content -->
 
-	<!-- Begint: Listed Content -->
+  <!-- Begint: Listed Content -->
   <div class="home-container" *ngIf="grouped !== '1'">
     <div class="home-container__header">
       <h2 class="home-container__title button button--label">All</h2>
-      <div class="home-container__actions">
-        <button class="button button--red" [disabled]="selected.length == 0">
+      <div class="home-container__actions" *ngIf="archive!='1'">
+        <button class="button button--red" (click)="deleteSelected()" [disabled]="selected.length == 0">
           <fa-icon [icon]="faTrashCan"></fa-icon>
           Delete Selected
         </button>
-        <button class="button button--green" [disabled]="selected.length == 0">
+        <button class="button button--green" (click)="updateSelected()" [disabled]="selected.length == 0">
           <fa-icon [icon]="faCheck"></fa-icon>
           Done
         </button>
@@ -83,7 +84,8 @@
     </div>
     <div class="home__cards">
       <div *ngFor="let todo of todos">
-        <app-todo-card [todo]="todo"></app-todo-card>
+        <app-todo-card *ngIf="(todo.archive != '1' && archive != '1')|| (todo.archive === '1' && archive ==='1')"
+          [todo]="todo" (selectedId)="selectedIdHandler($event)"></app-todo-card>
       </div>
     </div>
   </div>

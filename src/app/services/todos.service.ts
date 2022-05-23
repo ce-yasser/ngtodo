@@ -48,11 +48,12 @@ export class TodosService {
 	 * Change todo status to '1'
 	 * @param id todo id
 	 */
-	markDone(id: string): Promise<string> {
+	markDone(id: Array<string> | string): Promise<string> {
 		return new Promise(resolve => {
+			id = (typeof id == 'string') ? [id] : id;
 			this.getAll().then(todos => {
 				const newTodos = todos.map(todo => {
-					if (todo.id == id) {
+					if (id.indexOf(todo.id) != -1) {
 						return { ...todo, status: '1' };
 					}
 					return todo;
@@ -63,19 +64,19 @@ export class TodosService {
 		});
 	}
 
-	delete(id: string): Promise<string> {
+	delete(id: Array<string> | string): Promise<string> {
 		return new Promise(resolve => {
+			id = (typeof id == 'string') ? [id] : id;
 			this.getAll().then(todos => {
-				const allTodos = todos.filter( todo =>{
-					console.log(todo.id != id);
-					if(todo.id == id) {
+				const allTodos = todos.filter(todo => {
+					if (id.indexOf(todo.id) != -1) {
 						todo.archive = '1';
 						this.addToArchive(todo);
 					}
 					return todo.id != id;
 				});
 				localStorage.setItem('todos', JSON.stringify(allTodos));
-				resolve('true');
+				resolve('1');
 			})
 		});
 	}
@@ -87,8 +88,9 @@ export class TodosService {
 	addToArchive(todo: Todo): Promise<string> {
 		return new Promise(resolve => {
 			this.getArchived().then(todos => {
-				todos.push(todo);
-				localStorage.setItem('archivedTodos', JSON.stringify(todos));
+				const archivedTodos = todos.filter(oldtodo => oldtodo.id != todo.id);
+				archivedTodos.push(todo);
+				localStorage.setItem('archivedTodos', JSON.stringify(archivedTodos));
 				resolve(todo.id);
 			})
 		});

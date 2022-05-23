@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class AddTodoComponent implements OnInit {
 	taskForm: FormGroup;
-	today = (new Date()).setUTCHours(0, 0, 0, 0);
+	today = (new Date()).setHours(0, 0, 0, 0);
 
 	priorities = {
 		0: 'low',
