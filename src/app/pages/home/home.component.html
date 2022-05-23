@@ -58,9 +58,9 @@
       </div>
 
       <div class="home-container__cards">
-        <div *ngFor="let todo of group.value">
+        <div *ngFor="let todo of group.value; let i = index">
           <app-todo-card 
-            [todo]="todo" (selectedId)="selectedIdHandler($event)"></app-todo-card>
+            [todo]="todo" (selectedId)="selectedIdHandler($event)" (triggerDelete)="deleteHandler($event)"></app-todo-card>
         </div>
       </div>
     </div>
@@ -83,9 +83,9 @@
       </div>
     </div>
     <div class="home__cards">
-      <div *ngFor="let todo of todos">
+      <div *ngFor="let todo of todos; let i = index">
         <app-todo-card *ngIf="(todo.archive != '1' && archive != '1')|| (todo.archive === '1' && archive ==='1')"
-          [todo]="todo" (selectedId)="selectedIdHandler($event)"></app-todo-card>
+          [todo]="todo" (selectedId)="selectedIdHandler($event)" (triggerDelete)="deleteHandler($event)"></app-todo-card>
       </div>
     </div>
   </div>

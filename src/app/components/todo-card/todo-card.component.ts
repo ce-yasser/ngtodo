@@ -16,6 +16,7 @@ export class TodoCardComponent implements OnInit {
 
 	faCheck = faCheck;
 	@Output() selectedId: EventEmitter<any> = new EventEmitter();
+	@Output() triggerDelete: EventEmitter<boolean> = new EventEmitter();
 	faTrashCan = faTrashCan;
 
 	constructor(
@@ -45,6 +46,7 @@ export class TodoCardComponent implements OnInit {
 		this.ngxService.start();
 		this.todosService.delete(this.todo.id).then(archive => {
 			this.todo.archive = archive;
+			this.triggerDelete.emit(true);
 			this.ngxService.stop();
 		})
 	}
