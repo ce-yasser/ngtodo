@@ -7,6 +7,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { faPlusCircle, faCheck, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
+
 @Component({
 	selector: 'app-home',
 	templateUrl: './home.component.html',
@@ -27,6 +28,15 @@ export class HomeComponent implements OnInit {
 	faCheck = faCheck;
 	faTrashCan = faTrashCan;
 	selected: Array<string> = [];
+	dropdownSettings: Object = {
+		singleSelection: false,
+		idField: 'item_id',
+		textField: 'item_text',
+		itemsShowLimit: 3,
+		allowSearchFilter: true,
+		enableCheckAll: true
+	};
+	groups = ['group1', 'group2', 'group3']
 
 	constructor(
 		private ngxService: NgxUiLoaderService,
@@ -59,7 +69,7 @@ export class HomeComponent implements OnInit {
 			startDate: new FormControl(this.startDate),
 			endDate: new FormControl(this.endDate),
 			title: new FormControl(this.title),
-			group: new FormControl(this.group)
+			group: new FormControl(this.group),
 		});
 	}
 

@@ -28,11 +28,9 @@
       </label>
       <label class="home-form__label" for="group">
         Group
-        <select multiple formControlName="group">
-          <option value="group1">group1</option>
-          <option value="group2">group2</option>
-          <option value="group3">group3</option>
-        </select>
+        <ng-multiselect-dropdown id="group" name="group" [placeholder]="'Select Group'" [data]="groups"
+          formControlName="group" [settings]="dropdownSettings">
+        </ng-multiselect-dropdown>
       </label>
     </div>
     <button class="button button--cta" type="submit" [disabled]="!filterForm.valid">Filter</button>
@@ -59,8 +57,8 @@
 
       <div class="home-container__cards">
         <div *ngFor="let todo of group.value; let i = index">
-          <app-todo-card 
-            [todo]="todo" (selectedId)="selectedIdHandler($event)" (triggerDelete)="deleteHandler($event)"></app-todo-card>
+          <app-todo-card [todo]="todo" (selectedId)="selectedIdHandler($event)" (triggerDelete)="deleteHandler($event)">
+          </app-todo-card>
         </div>
       </div>
     </div>
@@ -85,7 +83,8 @@
     <div class="home__cards">
       <div *ngFor="let todo of todos; let i = index">
         <app-todo-card *ngIf="(todo.archive != '1' && archive != '1')|| (todo.archive === '1' && archive ==='1')"
-          [todo]="todo" (selectedId)="selectedIdHandler($event)" (triggerDelete)="deleteHandler($event)"></app-todo-card>
+          [todo]="todo" (selectedId)="selectedIdHandler($event)" (triggerDelete)="deleteHandler($event)">
+        </app-todo-card>
       </div>
     </div>
   </div>

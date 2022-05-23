@@ -1,0 +1,58 @@
+/**
+ * Style to override ng-multiselect-dropdown
+ * package style
+ */
+.multiselect-dropdown {
+
+  .dropdown-btn {
+    background-color: var(--input-background) !important;
+    border: none !important;
+    border-radius: 5px !important;
+    padding: 5px 30px 5px 10px !important;
+    width: 210px !important;
+    min-height: 34px;
+    display: flex !important;
+    flex-wrap: wrap;
+    column-gap: 5px;
+    row-gap: 5px;
+		align-items: center;
+    font-size: 0.72rem !important;
+
+    .selected-item-container {
+      .selected-item {
+        background-color: var(--color-contrast) !important;
+        color: var(--color-text) !important;
+        border-color: currentColor !important;
+        border-radius: 2px !important;
+        float: none !important;
+        margin: 0 !important;
+        display: flex;
+        align-content: center;
+        justify-content: center;
+
+        a {
+          color: var(--color-text) !important;
+        }
+      }
+    }
+
+    .dropdown-multiselect__caret {
+      width: 20px !important;
+      height: 100% !important;
+      display: flex !important;
+      align-items: center;
+      justify-content: center;
+
+      &:before {
+        margin-top: 0 !important;
+        top: auto !important;
+        border-left-width: 6px;
+        border-right-width: 6px;
+
+      }
+    }
+  }
+	.dropdown-list .filter-textbox input {
+		padding: 8px 10px !important;
+	}
+}

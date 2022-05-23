@@ -2,11 +2,12 @@ import { NgModule } from '@angular/core';
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxUiLoaderModule } from "ngx-ui-loader";
-
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { AppRoutingModule } from './app-routing.module';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 import { AppComponent } from './app.component';
 import { AddTodoComponent } from './pages/add-todo/add-todo.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TodoComponent } from './pages/todo/todo.component';
 import { HeaderComponent } from './components/header/header.component';
 import { HomeComponent } from './pages/home/home.component';
@@ -28,7 +29,8 @@ import { TopBarComponent } from './components/top-bar/top-bar.component';
     AppRoutingModule,
     FontAwesomeModule,
 		ReactiveFormsModule,
-		NgxUiLoaderModule
+		NgxUiLoaderModule,
+		NgMultiSelectDropDownModule.forRoot()
   ],
   providers: [
 		Title
