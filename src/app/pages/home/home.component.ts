@@ -70,11 +70,21 @@ export class HomeComponent implements OnInit {
 			this.todos = todos;
 		});
 		this.titleService.setTitle(this.pageTitle);
+
+		window.onstorage = () => {
+			alert(2);
+		}
+		window.addEventListener('storage', () => {
+			alert('help');
+
+		});
 	}
 
 	refreshTodos(): Promise<any> {
 		return new Promise(resolve => {
 			this.todosService.getFilteredTodos({ 'archive': this.archive, 'start': this.startDate, 'end': this.endDate, 'title': this.title, 'status': this.status, 'group': this.group }).then(filteredTodos => {
+				this.selected = [];
+				console.log(filteredTodos);
 				resolve(this.getTodos(filteredTodos));
 			});
 		});
@@ -123,6 +133,7 @@ export class HomeComponent implements OnInit {
 			});
 		});
 	}
+
 	deleteSelected() {
 		this.ngxService.start();
 		this.todosService.delete(this.selected).then(() => {

@@ -59,7 +59,7 @@
 
       <div class="home-container__cards">
         <div *ngFor="let todo of group.value">
-          <app-todo-card *ngIf="(todo.archive != '1' && archive != '1')|| (todo.archive === '1' && archive ==='1')"
+          <app-todo-card 
             [todo]="todo" (selectedId)="selectedIdHandler($event)"></app-todo-card>
         </div>
       </div>

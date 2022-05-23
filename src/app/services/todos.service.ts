@@ -66,17 +66,19 @@ export class TodosService {
 
 	delete(id: Array<string> | string): Promise<string> {
 		return new Promise(resolve => {
-			id = (typeof id == 'string') ? [id] : id;
+			const ids: Array<string> = (typeof id == 'string') ? [id] : id;
 			this.getAll().then(todos => {
 				const allTodos = todos.filter(todo => {
-					if (id.indexOf(todo.id) != -1) {
+					if (ids.indexOf(todo.id) != -1) {
 						todo.archive = '1';
-						this.addToArchive(todo);
+						return false
 					}
-					return todo.id != id;
+					return ids.indexOf(todo.id) === -1
 				});
-				localStorage.setItem('todos', JSON.stringify(allTodos));
-				resolve('1');
+				this.addToArchive(ids).then(archivedTodos => {
+					localStorage.setItem('todos', JSON.stringify(allTodos));
+					resolve('1');
+				});
 			})
 		});
 	}
@@ -85,13 +87,19 @@ export class TodosService {
 	 * Create todo
 	 * @param todo 
 	 */
-	addToArchive(todo: Todo): Promise<string> {
+	addToArchive(ids: Array<string>): Promise<Array<Todo>> {
 		return new Promise(resolve => {
-			this.getArchived().then(todos => {
-				const archivedTodos = todos.filter(oldtodo => oldtodo.id != todo.id);
-				archivedTodos.push(todo);
-				localStorage.setItem('archivedTodos', JSON.stringify(archivedTodos));
-				resolve(todo.id);
+			this.getAll().then(todos => {
+				const archivedTodos = todos.filter(todo => {
+					todo.archive = '1';
+					return ids.indexOf(todo.id) != -1;
+				});
+
+				this.getArchived().then(deleted => {
+					const newArchived = [...deleted, ...archivedTodos];
+					localStorage.setItem('archivedTodos', JSON.stringify(newArchived));
+					resolve(newArchived);
+				});
 			})
 		});
 	}
