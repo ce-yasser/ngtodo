@@ -13,6 +13,7 @@ import { NgxUiLoaderService } from "ngx-ui-loader";
 export class TodoCardComponent implements OnInit {
 	@Input() todo: Todo;
 
+
 	faCheck = faCheck;
 	@Output() selectedId: EventEmitter<any> = new EventEmitter();
 	faTrashCan = faTrashCan;
@@ -27,7 +28,9 @@ export class TodoCardComponent implements OnInit {
 	}
 
 	goToSingle(id: string | undefined) {
-		this.router.navigate(['/todo', id]);
+		if(this.todo.archive != '1') {
+			this.router.navigate(['/todo', id]);
+		}
 	}
 
 	updateStatus() {
